@@ -1,0 +1,71 @@
+.orders-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  background-color: #1e1e2f;
+  color: #f1f1f1;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.orders-container h1 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ff6584;
+}
+
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  border: 1px solid #333;
+  padding: 12px;
+  text-align: center;
+}
+
+.orders-table th {
+  background-color: #2b2b3d;
+}
+
+.status-badge {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  text-transform: capitalize;
+}
+
+.status-in_elaborazione {
+  background-color: #f1c40f;
+  color: #000;
+}
+
+.status-spedito {
+  background-color: #3498db;
+}
+
+.status-consegnato {
+  background-color: #2ecc71;
+}
+
+.status-annullato {
+  background-color: #e74c3c;
+}
+
+.status-select {
+  padding: 5px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2b2b3d;
+  color: #fff;
+  font-size: 13px;
+}
+
+.no-orders {
+  text-align: center;
+  font-style: italic;
+  margin-top: 30px;
+}

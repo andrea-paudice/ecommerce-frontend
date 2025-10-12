@@ -1,0 +1,82 @@
+.add-product-container {
+  max-width: 700px;
+  margin: 40px auto;
+  background-color: #8c8ccc;
+  color: #f1f1f1;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.add-product-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #ffffff;
+}
+
+.add-product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.add-product-form label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.add-product-form input,
+.add-product-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #555;
+  background-color: #7676c2;
+  color: #fff;
+  font-size: 14px;
+}
+
+.add-product-form textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.add-product-form input[type="checkbox"] {
+  width: auto;
+  transform: scale(1.2);
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.submit-btn,
+.cancel-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.submit-btn {
+  background-color: #00b894;
+  color: white;
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  background-color: #019874;
+}
+
+.cancel-btn {
+  background-color: #d63031;
+  color: white;
+  transition: 0.3s;
+}
+
+.cancel-btn:hover {
+  background-color: #b71c1c;
+}

@@ -23,7 +23,11 @@
 .orders-table td {
   border: 1px solid #333;
   padding: 12px;
-  text-align: center;
+  text-align: left;
+}
+
+.orders-table li{
+  text-align: left;
 }
 
 .orders-table th {

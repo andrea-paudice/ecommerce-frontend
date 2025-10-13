@@ -12,6 +12,7 @@ import AdminRoute from "./components/AdminRoute";
 import EditProduct from "./components/EditProduct";
 import AdminOrdersPanel from "./components/AdminOrdersPanel";
 import AdminProductsPanel from "./components/AdminProductsPanel";
+import CartPage from "./components/CartPage";
 
 const App = () => {
   return (
@@ -25,6 +26,8 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+
+          <Route path="/cart" element={<CartPage />} />
 
           {/* 🔒 Rotte protette per Admin */}
           <Route

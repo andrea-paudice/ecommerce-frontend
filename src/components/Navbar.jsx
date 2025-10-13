@@ -1,3 +1,4 @@
+// src/components/Navbar.jsx
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
@@ -19,6 +20,11 @@ const Navbar = () => {
             <>
               <Link to="/admin" className="nav-link">Admin Panel</Link>
             </>
+          )}
+
+          {/* Solo user loggato può vedere il carrello */}
+          {user?.role === "ROLE_USER" && (
+            <Link to="/cart" className="nav-link">🛒 Carrello</Link>
           )}
 
           {/* Se loggato mostra Logout, altrimenti Login */}

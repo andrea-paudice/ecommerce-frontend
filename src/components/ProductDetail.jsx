@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/AuthContext";
 import "./ProductDetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // ✅ otteniamo utente e token
   const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     axios
@@ -14,6 +17,28 @@ const ProductDetail = () => {
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Errore nel caricamento prodotto:", err));
   }, [id]);
+
+  const handleAddToCart = () => {
+    if (!user) {
+      alert("Devi effettuare il login per aggiungere un prodotto al carrello.");
+      navigate("/login");
+      return;
+    }
+
+    setLoading(true);
+    axios
+      .post(`http://localhost:8080/api/user/add/${product.prodId}`, null, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+      .then(() => {
+        alert("Prodotto aggiunto al carrello!");
+      })
+      .catch((err) => {
+        console.error("Errore nell'aggiunta al carrello:", err);
+        alert("Errore: impossibile aggiungere al carrello.");
+      })
+      .finally(() => setLoading(false));
+  };
 
   if (!product) return <p style={{ textAlign: "center" }}>Caricamento...</p>;
 
@@ -45,9 +70,20 @@ const ProductDetail = () => {
           </p>
           <p><b>Descrizione:</b><br />{product.prodDescription}</p>
 
-          <button className="back-button" onClick={() => navigate("/")}>
-            ⬅️ Torna alla Home
-          </button>
+          <div className="button-group">
+            <button className="back-button" onClick={() => navigate("/")}>
+              ⬅️ Torna alla Home
+            </button>
+
+            {/* ✅ Bottone aggiungi al carrello */}
+            <button
+              className="add-cart-button"
+              onClick={handleAddToCart}
+              disabled={loading || !product.available}
+            >
+              {loading ? "⏳ Aggiungo..." : "🛒 Aggiungi al Carrello"}
+            </button>
+          </div>
         </div>
       </div>
     </div>

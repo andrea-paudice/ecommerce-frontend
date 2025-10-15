@@ -14,9 +14,9 @@ const CartPage = () => {
       axios.get("http://localhost:8080/api/user/mycart", {
         headers: { Authorization: `Bearer ${user.token}` },
       })
-      .then(res => setCart(res.data))
-      .catch(err => console.error("Errore nel caricamento del carrello:", err))
-      .finally(() => setLoading(false));
+        .then(res => setCart(res.data))
+        .catch(err => console.error("Errore nel caricamento del carrello:", err))
+        .finally(() => setLoading(false));
     }
   }, [user]);
 
@@ -24,25 +24,36 @@ const CartPage = () => {
     axios.delete(`http://localhost:8080/api/user/remove/${idCartItem}`, {
       headers: { Authorization: `Bearer ${user.token}` },
     })
-    .then(res => {
-      alert("Prodotto rimosso dal carrello!");
-      setCart(prev => ({
-        ...prev,
-        cartItems: prev.cartItems.filter(item => item.idCartItem !== idCartItem)
-      }));
+      .then(res => {
+        alert("Prodotto rimosso dal carrello!");
+        setCart(prev => ({
+          ...prev,
+          cartItems: prev.cartItems.filter(item => item.idCartItem !== idCartItem)
+        }));
+      })
+      .catch(err => console.error("Errore nella rimozione:", err));
+  };
+
+  const handleCheckout = () => {
+    axios.post("http://localhost:8080/api/user/order/add", {}, {
+      headers: { Authorization: `Bearer ${user.token}` },
     })
-    .catch(err => console.error("Errore nella rimozione:", err));
+      .then(res => {
+        alert("Ordine aggiunto!");
+        setCart(prev => ({ ...prev, cartItems: [] }));
+      })
+      .catch(err => console.error("Errore durante il checkout:", err));
   };
 
   const handleClearCart = () => {
     axios.delete("http://localhost:8080/api/clear", {
       headers: { Authorization: `Bearer ${user.token}` },
     })
-    .then(() => {
-      alert("Carrello svuotato!");
-      setCart(prev => ({ ...prev, cartItems: [] }));
-    })
-    .catch(err => console.error("Errore nello svuotamento:", err));
+      .then(() => {
+        alert("Carrello svuotato!");
+        setCart(prev => ({ ...prev, cartItems: [] }));
+      })
+      .catch(err => console.error("Errore nello svuotamento:", err));
   };
 
   if (loading) return <p>Caricamento carrello...</p>;
@@ -85,9 +96,14 @@ const CartPage = () => {
 
       <h3 className="cart-total">Totale: {total.toFixed(2)} €</h3>
 
-      <button className="clear-btn" onClick={handleClearCart}>
-        Svuota Carrello
-      </button>
+      <div className="cart-buttons">
+        <button className="clear-btn" onClick={handleClearCart}>
+          Svuota Carrello
+        </button>
+        <button className="checkout-btn" onClick={handleCheckout}>
+          Acquista 🛍️
+        </button>
+      </div>
     </div>
   );
 };

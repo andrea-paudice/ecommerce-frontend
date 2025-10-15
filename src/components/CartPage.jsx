@@ -20,15 +20,15 @@ const CartPage = () => {
     }
   }, [user]);
 
-  const handleRemove = (productId) => {
-    axios.delete(`http://localhost:8080/api/user/remove/${productId}`, {
+  const handleRemove = (idCartItem) => {
+    axios.delete(`http://localhost:8080/api/user/remove/${idCartItem}`, {
       headers: { Authorization: `Bearer ${user.token}` },
     })
     .then(res => {
       alert("Prodotto rimosso dal carrello!");
       setCart(prev => ({
         ...prev,
-        cartItems: prev.cartItems.filter(item => item.product.prodId !== productId)
+        cartItems: prev.cartItems.filter(item => item.idCartItem !== idCartItem)
       }));
     })
     .catch(err => console.error("Errore nella rimozione:", err));
@@ -73,7 +73,7 @@ const CartPage = () => {
               <td>
                 <button
                   className="remove-btn"
-                  onClick={() => handleRemove(item.product.prodId)}
+                  onClick={() => handleRemove(item.idCartItem)}
                 >
                   Rimuovi
                 </button>
